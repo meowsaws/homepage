@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부산기계공고 | 실습실 기계 고장 신고</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#top" class="logo">
+        <img src="logo.png" alt="부산기계공업고등학교" class="logo-img">
+        <span class="logo-text">실습실 기계 고장 신고</span>
+      </a>
+      <nav class="nav">
+        <a href="#report">고장 신고</a>
+        <a href="#suggestion">건의사항</a>
+      </nav>
+      <button type="button" class="admin-btn" id="adminBtn">관리자</button>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <div class="container hero-inner">
+      <p class="hero-badge">실습 설비 신속 보수</p>
+      <h1>고장난 기계,<br><em>바로 신고</em>하세요</h1>
+      <p class="hero-sub">
+        실습실에서 기계 이상을 발견하면 아래에서 신고해 주세요.<br>
+        관리자(선생님)가 확인 후 수리 상태를 업데이트합니다.
+      </p>
+      <div class="report-stats">
+        <div class="report-stat"><strong id="statTotal">0</strong><span>전체 신고</span></div>
+        <div class="report-stat stat-new"><strong id="statNew">0</strong><span>접수됨</span></div>
+        <div class="report-stat stat-progress"><strong id="statProgress">0</strong><span>수리중</span></div>
+        <div class="report-stat stat-done"><strong id="statDone">0</strong><span>수리완료</span></div>
+      </div>
+    </div>
+  </section>
+
+  <main class="section" id="report">
+    <div class="container report-layout">
+
+      <form class="report-form" id="reportForm">
+        <h3>🔧 고장 신고하기</h3>
+        <label>
+          건물 <em>*</em>
+          <select id="repBuilding" required>
+            <option value="">건물을 선택하세요</option>
+            <option>무한상상관</option>
+          </select>
+        </label>
+        <label>
+          실습실 <em>*</em>
+          <select id="repRoom" required disabled>
+            <option value="">먼저 건물을 선택하세요</option>
+          </select>
+        </label>
+        <label>
+          기계명 <em>*</em>
+            <input type="text" id="repMachine" placeholder="예) 특수용접실 복도기준 왼쪽 3번째 칸" required>
+        </label>
+        <label>
+          고장 내용 <em>*</em>
+          <textarea id="repDesc" rows="4" placeholder="어떻게 고장났는지 자세히 적어주세요" required></textarea>
+        </label>
+        <label>
+          신고자 (선택)
+          <input type="text" id="repName" placeholder="학반 / 이름 (예: 2-3 김민준)">
+        </label>
+        <label>
+          사진 첨부 (선택)
+          <input type="file" id="repPhoto" accept="image/*">
+        </label>
+        <div class="photo-preview" id="photoPreview"></div>
+        <button type="submit" class="btn btn-primary btn-block">신고 접수하기</button>
+        <p class="form-note">신고 내용은 이 브라우저에 저장됩니다.</p>
+      </form>
+
+      <div class="report-list-area">
+        <div class="report-toolbar">
+          <select id="filterRoom">
+            <option value="">전체 실습실</option>
+          </select>
+          <div class="status-tabs" id="statusTabs">
+            <button type="button" class="active" data-status="">전체</button>
+            <button type="button" data-status="new">접수됨</button>
+            <button type="button" data-status="progress">수리중</button>
+            <button type="button" data-status="done">수리완료</button>
+          </div>
+        </div>
+        <div class="report-list" id="reportList"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <section class="section sg-section" id="suggestion">
+    <div class="container">
+      <p class="section-tag">Suggestion</p>
+      <h2 class="section-title">건의사항</h2>
+      <p class="section-desc">
+        실습실 시설, 수업, 기자재 등 개선이 필요한 부분을 자유롭게 건의해 주세요.
+        관리자가 확인 후 검토합니다.
+      </p>
+
+      <div class="report-layout">
+        <form class="report-form sgt-form" id="sgtForm">
+          <h3>💬 건의사항 남기기</h3>
+          <label>
+            제목 <em>*</em>
+            <input type="text" id="sgtTitle" placeholder="건의 제목을 입력하세요" required>
+          </label>
+          <label>
+            내용 <em>*</em>
+            <textarea id="sgtBody" rows="5" placeholder="건의 내용을 자세히 적어주세요" required></textarea>
+          </label>
+          <label>
+            작성자 (선택)
+            <input type="text" id="sgtName" placeholder="학반 / 이름 또는 익명">
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">건의사항 등록하기</button>
+          <p class="form-note">건의사항은 이 브라우저에 저장됩니다.</p>
+        </form>
+
+        <div class="report-list-area">
+          <div class="report-toolbar">
+            <div class="status-tabs" id="sgtTabs">
+              <button type="button" class="active" data-status="">전체</button>
+              <button type="button" data-status="wait">대기중</button>
+              <button type="button" data-status="done">확인완료</button>
+            </div>
+          </div>
+          <div class="report-list" id="sgtList"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p><strong>부산기계공업고등학교</strong> 실습실 기계 고장 신고 시스템</p>
+      <p class="copy">© 2026 Busan Mechanical Technical High School. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
